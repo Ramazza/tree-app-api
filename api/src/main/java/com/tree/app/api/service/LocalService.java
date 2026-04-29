@@ -19,6 +19,7 @@ public class LocalService {
         this.projectRepository = projectRepository;
     }
 
+    // Create a local
     public Local create(Long projectId, Local local) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Projeto não encontrado"));
@@ -27,7 +28,31 @@ public class LocalService {
         return repository.save(local);
     }
 
+    // List all locals
     public List<Local> findByProject(Long projectId) {
         return repository.findByProjectId(projectId);
+    }
+
+    // List a specific local
+    public Local findByIdAndProject(Long id, Long projectId) {
+        return repository.findByIdAndProjectId(id, projectId)
+                .orElseThrow(() -> new RuntimeException("Local não encontrado neste projeto"));
+    }
+
+    // Update a local
+    public Local updateLocal(Long id, Long projectId, Local updatedLocal) {
+        Local local = findByIdAndProject(id, projectId);
+
+        if (updatedLocal.getName() != null) {
+            local.setName(updatedLocal.getName());
+        }
+
+        return repository.save(local);
+    }
+
+    // Delete a local
+    public void deleteLocal(Long id, Long projectId) {
+        Local local = findByIdAndProject(id, projectId);
+        repository.delete(local);
     }
 }

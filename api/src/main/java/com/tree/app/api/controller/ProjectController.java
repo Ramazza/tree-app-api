@@ -17,18 +17,33 @@ public class ProjectController {
         this.service = service;
     }
 
+    // Create project
     @PostMapping
     public Project create(@RequestBody Project project) {
         return service.create(project);
     }
 
+    // List all project
     @GetMapping
     public List<Project> findAll() {
         return service.findAll();
     }
 
+    // List a specific project
     @GetMapping("/{id}")
     public Project findById(@PathVariable Long id) {
         return service.findById(id);
+    }
+
+    // Update a project
+    @PatchMapping("/{id}")
+    public Project updateProject(@PathVariable Long id, @RequestBody Project updatedProject){
+        return service.updateProject(id, updatedProject);
+    }
+
+    // Delete a project
+    @DeleteMapping("/{id}")
+    public void deleteProject(@PathVariable Long id) {
+        service.deleteProject(id);
     }
 }
