@@ -1,5 +1,7 @@
 package com.tree.app.api.controller;
 
+import com.tree.app.api.dto.project.ProjectDetailedResponse;
+import com.tree.app.api.dto.project.ProjectSimpleResponse;
 import com.tree.app.api.model.entity.Project;
 import com.tree.app.api.service.ProjectService;
 import org.springframework.web.bind.annotation.*;
@@ -19,25 +21,25 @@ public class ProjectController {
 
     // Create project
     @PostMapping
-    public Project create(@RequestBody Project project) {
+    public ProjectSimpleResponse create(@RequestBody Project project) {
         return service.create(project);
     }
 
     // List all project
     @GetMapping
-    public List<Project> findAll() {
+    public List<ProjectSimpleResponse> findAll() {
         return service.findAll();
     }
 
     // List a specific project
     @GetMapping("/{id}")
-    public Project findById(@PathVariable Long id) {
+    public ProjectDetailedResponse findById(@PathVariable Long id) {
         return service.findById(id);
     }
 
     // Update a project
     @PatchMapping("/{id}")
-    public Project updateProject(@PathVariable Long id, @RequestBody Project updatedProject){
+    public ProjectSimpleResponse updateProject(@PathVariable Long id, @RequestBody Project updatedProject){
         return service.updateProject(id, updatedProject);
     }
 

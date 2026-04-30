@@ -1,8 +1,9 @@
 package com.tree.app.api.controller;
 
+import com.tree.app.api.dto.tree.TreeDetailedResponse;
+import com.tree.app.api.dto.tree.TreeListResponse;
+import com.tree.app.api.dto.tree.TreeResponse;
 import com.tree.app.api.model.entity.Tree;
-import com.tree.app.api.repository.LocalRepository;
-import com.tree.app.api.repository.TreeRepository;
 import com.tree.app.api.service.TreeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,25 +22,25 @@ public class TreeController {
 
     // Create a tree
     @PostMapping
-    public Tree create(@PathVariable Long localId, @RequestBody Tree tree) {
+    public TreeResponse create(@PathVariable Long localId, @RequestBody TreeResponse tree) {
         return service.create(localId, tree);
     }
 
     // List all trees
     @GetMapping
-    public List<Tree> list(@PathVariable Long localId) {
+    public List<TreeListResponse> list(@PathVariable Long localId) {
         return service.findByLocal(localId);
     }
 
     // List a specific tree
     @GetMapping("/{id}")
-    public Tree findById(@PathVariable Long localId, @PathVariable Long id) {
+    public TreeDetailedResponse findById(@PathVariable Long localId, @PathVariable Long id) {
         return service.findByIdAndLocal(id, localId);
     }
 
     // Updates a tree
     @PatchMapping("/{id}")
-    public Tree updateTree(@PathVariable Long id, @PathVariable Long localId, @RequestBody Tree updatedTree){
+    public TreeResponse updateTree(@PathVariable Long id, @PathVariable Long localId, @RequestBody Tree updatedTree){
         return service.updateTree(id, localId, updatedTree);
     }
 

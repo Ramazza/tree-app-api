@@ -3,11 +3,15 @@ package com.tree.app.api.service;
 import com.tree.app.api.model.entity.Tree;
 import com.tree.app.api.model.entity.Local;
 import com.tree.app.api.repository.TreeRepository;
-
-import jakarta.persistence.Column;
-
 import com.tree.app.api.repository.LocalRepository;
+
 import org.springframework.stereotype.Service;
+
+import com.tree.app.api.dto.tree.TreeResponse;
+import com.tree.app.api.dto.tree.TreeDetailedResponse;
+import com.tree.app.api.dto.tree.TreeListResponse;
+import com.tree.app.api.dto.project.ProjectSimpleResponse;
+import com.tree.app.api.dto.local.LocalDetailedResponse;
 
 import java.util.List;
 
@@ -22,29 +26,53 @@ public class TreeService {
         this.localRepository = localRepository;
     }
 
-    //Create a tree
-    public Tree create(Long localId, Tree tree) {
+    // CREATE Tree (DTO)
+    public TreeResponse create(Long localId, TreeResponse response) {
         Local local = localRepository.findById(localId)
                 .orElseThrow(() -> new RuntimeException("Local não encontrado"));
 
+        Tree tree = new Tree();
+
+        tree.setSpecies(response.getSpecies());
+        tree.setHeight(response.getHeight());
+        tree.setDiameter(response.getDiameter());
+        tree.setStatus(response.getStatus());
+        tree.setPhotoUrl(response.getPhotoUrl());
+
         tree.setLocal(local);
-        return treeRepository.save(tree);
+
+        Tree savedTree = treeRepository.save(tree);
+
+        return toSimpleDto(savedTree);
     }
 
-    // List the trees
-    public List<Tree> findByLocal(Long localId) {
-        return treeRepository.findByLocalId(localId);
+    
+    // LIST Tress (DTO)
+    public List<TreeListResponse> findByLocal(Long localId) {
+        List<Tree> trees = treeRepository.findByLocalId(localId);
+
+        return trees.stream().map(tree -> {
+            TreeListResponse dto = new TreeListResponse();
+
+            dto.setId(tree.getId());
+            dto.setSpecies(tree.getSpecies());
+            dto.setStatus(tree.getStatus());
+
+            return dto;
+        }).toList();
     }
 
-    // List a specific tree
-    public Tree findByIdAndLocal(Long id, Long localId) {
-        return treeRepository.findByIdAndLocalId(id, localId)
-                .orElseThrow(() -> new RuntimeException("Local não encontrado neste projeto"));
+    // GET Tree (DTO)
+    public TreeDetailedResponse findByIdAndLocal(Long id, Long localId) {
+        Tree tree = findEntityByIdAndLocal(id, localId); 
+
+        return toDto(tree);
     }
 
-    // Update a tree
-    public Tree updateTree(Long id, Long localId, Tree updatedTree) {
-        Tree tree = findByIdAndLocal(id, localId);
+    // UPDATE Tree (DTO)
+    public TreeResponse updateTree(Long id, Long localId, Tree updatedTree) {
+
+        Tree tree = findEntityByIdAndLocal(id, localId); 
 
         if (updatedTree.getSpecies() != null) {
             tree.setSpecies(updatedTree.getSpecies());
@@ -66,12 +94,60 @@ public class TreeService {
             tree.setPhotoUrl(updatedTree.getPhotoUrl());
         }
 
-        return treeRepository.save(tree);
+        Tree savedTree = treeRepository.save(tree);
+
+        return toSimpleDto(savedTree);
     }
 
-    // Delete a tree
+    // DELETE Tree (Entity)
     public void deleteTree(Long id, Long localId) {
-        Tree tree = findByIdAndLocal(id, localId);
+        Tree tree = findEntityByIdAndLocal(id, localId);
+
         treeRepository.delete(tree);
+    }
+
+    // INTERNAL METHOD (Entity)
+    private Tree findEntityByIdAndLocal(Long id, Long localId) {
+        return treeRepository.findByIdAndLocalId(id, localId)
+                .orElseThrow(() -> new RuntimeException("Local não encontrado neste projeto"));
+    }
+
+    // MAPPER (Entity → DTO)
+    private TreeDetailedResponse toDto(Tree tree) {
+        TreeDetailedResponse dto = new TreeDetailedResponse();
+
+        dto.setId(tree.getId());
+        dto.setSpecies(tree.getSpecies());
+        dto.setHeight(tree.getHeight());
+        dto.setDiameter(tree.getDiameter());
+        dto.setStatus(tree.getStatus());
+        dto.setPhotoUrl(tree.getPhotoUrl());
+
+        LocalDetailedResponse localDto = new LocalDetailedResponse();
+        localDto.setId(tree.getLocal().getId());
+        localDto.setName(tree.getLocal().getName());
+
+        ProjectSimpleResponse projectDto = new ProjectSimpleResponse();
+        projectDto.setId(tree.getLocal().getProject().getId());
+        projectDto.setName(tree.getLocal().getProject().getName());
+        projectDto.setDescription(tree.getLocal().getProject().getDescription());
+
+        localDto.setProject(projectDto);
+        dto.setLocal(localDto);
+
+        return dto;
+    }
+
+    private TreeResponse toSimpleDto(Tree tree) {
+        TreeResponse dto = new TreeResponse();
+
+        dto.setId(tree.getId());
+        dto.setSpecies(tree.getSpecies());
+        dto.setHeight(tree.getHeight());
+        dto.setDiameter(tree.getDiameter());
+        dto.setStatus(tree.getStatus());
+        dto.setPhotoUrl(tree.getPhotoUrl());
+
+        return dto;
     }
 }

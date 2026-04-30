@@ -4,7 +4,12 @@ import com.tree.app.api.model.entity.Local;
 import com.tree.app.api.model.entity.Project;
 import com.tree.app.api.repository.LocalRepository;
 import com.tree.app.api.repository.ProjectRepository;
+
 import org.springframework.stereotype.Service;
+
+import com.tree.app.api.dto.local.LocalDetailedResponse;
+import com.tree.app.api.dto.local.LocalSimpleResponse;
+import com.tree.app.api.dto.project.ProjectSimpleResponse;
 
 import java.util.List;
 
@@ -19,40 +24,83 @@ public class LocalService {
         this.projectRepository = projectRepository;
     }
 
-    // Create a local
-    public Local create(Long projectId, Local local) {
+    // CREATE Local (DTO)
+    public LocalSimpleResponse create(Long projectId, Local request) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Projeto não encontrado"));
 
+        Local local = new Local();
+        local.setName(request.getName());
         local.setProject(project);
-        return repository.save(local);
+
+        Local savedLocal = repository.save(local);
+
+        return toSimpleDto(savedLocal);
     }
 
-    // List all locals
-    public List<Local> findByProject(Long projectId) {
-        return repository.findByProjectId(projectId);
+    // LIST all locals (DTO)
+    public List<LocalSimpleResponse> findByProject(Long projectId) {
+        List<Local> locals = repository.findByProjectId(projectId);
+
+        return locals.stream().map(this::toSimpleDto).toList();
     }
 
-    // List a specific local
-    public Local findByIdAndProject(Long id, Long projectId) {
+    // GET specific local (DTO)
+    public LocalDetailedResponse findByIdAndProject(Long id, Long projectId) {
+        Local local = findEntityByIdAndProject(id, projectId);
+
+        return toDto(local);
+    }
+
+    // UPDATE local (DTO)
+    public LocalSimpleResponse updateLocal(Long id, Long projectId, Local request) {
+        Local local = findEntityByIdAndProject(id, projectId);
+
+        if (request.getName() != null) {
+            local.setName(request.getName());
+        }
+
+        Local savedLocal = repository.save(local);
+
+        return toSimpleDto(savedLocal);
+    }
+
+    // DELETE local
+    public void deleteLocal(Long id, Long projectId) {
+        Local local = findEntityByIdAndProject(id, projectId);
+        repository.delete(local);
+    }
+
+    // INTERNAL (Entity)
+    private Local findEntityByIdAndProject(Long id, Long projectId) {
         return repository.findByIdAndProjectId(id, projectId)
                 .orElseThrow(() -> new RuntimeException("Local não encontrado neste projeto"));
     }
 
-    // Update a local
-    public Local updateLocal(Long id, Long projectId, Local updatedLocal) {
-        Local local = findByIdAndProject(id, projectId);
+    // MAPPER → Detailed (GET)
+    private LocalDetailedResponse toDto(Local local) {
+        LocalDetailedResponse dto = new LocalDetailedResponse();
 
-        if (updatedLocal.getName() != null) {
-            local.setName(updatedLocal.getName());
-        }
+        dto.setId(local.getId());
+        dto.setName(local.getName());
 
-        return repository.save(local);
+        ProjectSimpleResponse projectDto = new ProjectSimpleResponse();
+        projectDto.setId(local.getProject().getId());
+        projectDto.setName(local.getProject().getName());
+        projectDto.setDescription(local.getProject().getDescription());
+
+        dto.setProject(projectDto);
+
+        return dto;
     }
 
-    // Delete a local
-    public void deleteLocal(Long id, Long projectId) {
-        Local local = findByIdAndProject(id, projectId);
-        repository.delete(local);
+    // MAPPER → Simple (CREATE / UPDATE / LIST)
+    private LocalSimpleResponse toSimpleDto(Local local) {
+        LocalSimpleResponse dto = new LocalSimpleResponse();
+
+        dto.setId(local.getId());
+        dto.setName(local.getName());
+
+        return dto;
     }
 }

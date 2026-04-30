@@ -1,7 +1,8 @@
 package com.tree.app.api.controller;
 
+import com.tree.app.api.dto.local.LocalSimpleResponse;
+import com.tree.app.api.dto.local.LocalDetailedResponse;
 import com.tree.app.api.model.entity.Local;
-import com.tree.app.api.model.entity.Project;
 import com.tree.app.api.service.LocalService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,25 +21,25 @@ public class LocalController {
 
     // Create a local
     @PostMapping
-    public Local create(@PathVariable Long projectId, @RequestBody Local local) {
+    public LocalSimpleResponse create(@PathVariable Long projectId, @RequestBody Local local) {
         return service.create(projectId, local);
     }
 
     // List all locals
     @GetMapping
-    public List<Local> list(@PathVariable Long projectId) {
+    public List<LocalSimpleResponse> list(@PathVariable Long projectId) {
         return service.findByProject(projectId);
     }
 
     // List a specific local
     @GetMapping("/{id}")
-    public Local findById(@PathVariable Long projectId, @PathVariable Long id) {
+    public LocalDetailedResponse findById(@PathVariable Long projectId, @PathVariable Long id) {
         return service.findByIdAndProject(id, projectId);
     }
 
     // Update a local
     @PatchMapping("/{id}")
-    public Local updateLocal(@PathVariable Long id, @PathVariable Long projectId, @RequestBody Local updatedLocal){
+    public LocalSimpleResponse updateLocal(@PathVariable Long id, @PathVariable Long projectId, @RequestBody Local updatedLocal){
         return service.updateLocal(id, projectId, updatedLocal);
     }
     
