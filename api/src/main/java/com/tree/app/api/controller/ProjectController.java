@@ -1,14 +1,20 @@
 package com.tree.app.api.controller;
 
+import com.tree.app.api.dto.project.ProjectCreateRequest;
 import com.tree.app.api.dto.project.ProjectDetailedResponse;
 import com.tree.app.api.dto.project.ProjectSimpleResponse;
 import com.tree.app.api.model.entity.Project;
 import com.tree.app.api.service.ProjectService;
+
+import jakarta.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "*")
+@Validated
 @RestController
 @RequestMapping("/projects")
 public class ProjectController {
@@ -21,8 +27,8 @@ public class ProjectController {
 
     // Create project
     @PostMapping
-    public ProjectSimpleResponse create(@RequestBody Project project) {
-        return service.create(project);
+    public ProjectSimpleResponse create(@RequestBody @Valid ProjectCreateRequest request) {
+        return service.create(request);
     }
 
     // List all project

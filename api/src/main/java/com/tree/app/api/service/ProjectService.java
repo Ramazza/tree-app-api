@@ -6,6 +6,7 @@ import com.tree.app.api.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
 import com.tree.app.api.dto.project.ProjectSimpleResponse;
+import com.tree.app.api.dto.project.ProjectCreateRequest;
 import com.tree.app.api.dto.project.ProjectDetailedResponse;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class ProjectService {
     }
 
     // CREATE Project (DTO)
-    public ProjectSimpleResponse create(Project request) {
+    public ProjectSimpleResponse create(ProjectCreateRequest request) {
         Project project = new Project();
 
         project.setName(request.getName());

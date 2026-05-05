@@ -1,14 +1,20 @@
 package com.tree.app.api.controller;
 
 import com.tree.app.api.dto.local.LocalSimpleResponse;
+import com.tree.app.api.dto.local.LocalCreateRequest;
 import com.tree.app.api.dto.local.LocalDetailedResponse;
 import com.tree.app.api.model.entity.Local;
 import com.tree.app.api.service.LocalService;
+
+import jakarta.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "*")
+@Validated
 @RestController
 @RequestMapping("/projects/{projectId}/locals")
 public class LocalController {
@@ -21,8 +27,8 @@ public class LocalController {
 
     // Create a local
     @PostMapping
-    public LocalSimpleResponse create(@PathVariable Long projectId, @RequestBody Local local) {
-        return service.create(projectId, local);
+    public LocalSimpleResponse create(@PathVariable Long projectId, @Valid @RequestBody LocalCreateRequest request) {
+        return service.create(projectId, request);
     }
 
     // List all locals

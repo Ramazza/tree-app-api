@@ -7,6 +7,7 @@ import com.tree.app.api.repository.ProjectRepository;
 
 import org.springframework.stereotype.Service;
 
+import com.tree.app.api.dto.local.LocalCreateRequest;
 import com.tree.app.api.dto.local.LocalDetailedResponse;
 import com.tree.app.api.dto.local.LocalSimpleResponse;
 import com.tree.app.api.dto.project.ProjectSimpleResponse;
@@ -25,7 +26,7 @@ public class LocalService {
     }
 
     // CREATE Local (DTO)
-    public LocalSimpleResponse create(Long projectId, Local request) {
+    public LocalSimpleResponse create(Long projectId, LocalCreateRequest request) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Projeto não encontrado"));
 

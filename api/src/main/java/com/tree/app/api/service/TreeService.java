@@ -8,6 +8,7 @@ import com.tree.app.api.repository.LocalRepository;
 import org.springframework.stereotype.Service;
 
 import com.tree.app.api.dto.tree.TreeResponse;
+import com.tree.app.api.dto.tree.TreeCreateRequest;
 import com.tree.app.api.dto.tree.TreeDetailedResponse;
 import com.tree.app.api.dto.tree.TreeListResponse;
 import com.tree.app.api.dto.project.ProjectSimpleResponse;
@@ -27,17 +28,17 @@ public class TreeService {
     }
 
     // CREATE Tree (DTO)
-    public TreeResponse create(Long localId, TreeResponse response) {
+    public TreeResponse create(Long localId, TreeCreateRequest request) {
         Local local = localRepository.findById(localId)
                 .orElseThrow(() -> new RuntimeException("Local não encontrado"));
 
         Tree tree = new Tree();
 
-        tree.setSpecies(response.getSpecies());
-        tree.setHeight(response.getHeight());
-        tree.setDiameter(response.getDiameter());
-        tree.setStatus(response.getStatus());
-        tree.setPhotoUrl(response.getPhotoUrl());
+        tree.setSpecies(request.getSpecies());
+        tree.setHeight(request.getHeight());
+        tree.setDiameter(request.getDiameter());
+        tree.setStatus(request.getStatus());
+        tree.setPhotoUrl(request.getPhotoUrl());
 
         tree.setLocal(local);
 

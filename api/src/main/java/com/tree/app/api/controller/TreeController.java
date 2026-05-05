@@ -1,15 +1,21 @@
 package com.tree.app.api.controller;
 
+import com.tree.app.api.dto.tree.TreeCreateRequest;
 import com.tree.app.api.dto.tree.TreeDetailedResponse;
 import com.tree.app.api.dto.tree.TreeListResponse;
 import com.tree.app.api.dto.tree.TreeResponse;
 import com.tree.app.api.model.entity.Tree;
 import com.tree.app.api.service.TreeService;
+
+import jakarta.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "*")
+@Validated
 @RestController
 @RequestMapping("projects/{projectId}/locals/{localId}/trees")
 public class TreeController {
@@ -22,8 +28,8 @@ public class TreeController {
 
     // Create a tree
     @PostMapping
-    public TreeResponse create(@PathVariable Long localId, @RequestBody TreeResponse tree) {
-        return service.create(localId, tree);
+    public TreeResponse create(@PathVariable Long localId, @Valid @RequestBody TreeCreateRequest request) {
+        return service.create(localId, request);
     }
 
     // List all trees
