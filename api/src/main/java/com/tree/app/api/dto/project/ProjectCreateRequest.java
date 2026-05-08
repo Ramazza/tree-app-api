@@ -14,10 +14,6 @@ public class ProjectCreateRequest {
     @NotBlank(message = "Status is required")
     private String status;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
     // GETTERS & SETTERS
 
     public String getName() { return name; }
@@ -28,10 +24,4 @@ public class ProjectCreateRequest {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }

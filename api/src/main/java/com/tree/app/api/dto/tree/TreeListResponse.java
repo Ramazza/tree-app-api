@@ -1,18 +1,20 @@
 package com.tree.app.api.dto.tree;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({
     "id",
     "species",
-    "status"
+    "plantedAt"
 })
 
 public class TreeListResponse {
 
     private Long id;
     private String species;
-    private String status;
+    private LocalDateTime plantedAt;
 
     // GETTERS & SETTERS
 
@@ -22,7 +24,7 @@ public class TreeListResponse {
     public String getSpecies() { return species; }
     public void setSpecies(String species) { this.species = species; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public LocalDateTime getPlantedAt() { return plantedAt; }
+    public void setPlantedAt(LocalDateTime plantedAt) { this.plantedAt = plantedAt; }
 
 }
