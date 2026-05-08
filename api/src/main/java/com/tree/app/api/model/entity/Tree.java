@@ -24,13 +24,13 @@ public class Tree {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
-    @Column(name = "planted_at", nullable = false)
+    @Column(name = "planted_at", nullable = false, updatable = false)
     private LocalDateTime plantedAt;
     
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = false, updatable = false)
     private LocalDateTime updatedAt;
 
     @JsonIgnore
@@ -41,76 +41,30 @@ public class Tree {
     @JoinColumn(name = "local_id", nullable = false)
     private Local local;
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-    public String getSpecies() {
-        return species;
-    }
+    public String getSpecies() { return species; }
+    public void setSpecies(String species) { this.species = species; }
 
-    public void setSpecies(String species) {
-        this.species = species;
-    }
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
 
-    public Double getLatitude() {
-        return latitude;
-    }
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
+    public LocalDateTime getPlantedAt() { return plantedAt; }
+    public void setPlantedAt(LocalDateTime plantedAt) { this.plantedAt = plantedAt; }
 
-    public Double getLongitude() {
-        return longitude;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 
-    public LocalDateTime getPlantedAt() {
-        return plantedAt;
-    }
+    public List<TreeMeasurement> getMeasurements() { return measurements; }
+    public void setMeasurements(List<TreeMeasurement> measurements) { this.measurements = measurements; }
 
-    public void setPlantedAt(LocalDateTime plantedAt) {
-        this.plantedAt = plantedAt;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public List<TreeMeasurement> getMeasurements() {
-        return measurements;
-    }
-
-    public void setMeasurements(List<TreeMeasurement> measurements) {
-        this.measurements = measurements;
-    }
-
-    public Local getLocal() {
-        return local;
-    }
-
-    public void setLocal(Local local) {
-        this.local = local;
-    }
-
+    public Local getLocal() { return local; }
+    public void setLocal(Local local) { this.local = local; }
 }
