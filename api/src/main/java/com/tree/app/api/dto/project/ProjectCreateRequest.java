@@ -1,5 +1,7 @@
 package com.tree.app.api.dto.project;
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.NotBlank;
 
 public class ProjectCreateRequest {
@@ -9,6 +11,13 @@ public class ProjectCreateRequest {
 
     private String description;
 
+    @NotBlank(message = "Status is required")
+    private String status;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
     // GETTERS & SETTERS
 
     public String getName() { return name; }
@@ -16,4 +25,13 @@ public class ProjectCreateRequest {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }
