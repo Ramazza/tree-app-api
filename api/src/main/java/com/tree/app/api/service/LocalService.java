@@ -32,6 +32,8 @@ public class LocalService {
 
         Local local = new Local();
         local.setName(request.getName());
+        local.setDescription(request.getDescription());
+        local.setAddress(request.getAddress());
         local.setProject(project);
 
         Local savedLocal = repository.save(local);
@@ -61,6 +63,14 @@ public class LocalService {
             local.setName(request.getName());
         }
 
+        if (request.getDescription() != null) {
+            local.setDescription(request.getDescription());
+        }
+
+        if (request.getAddress() != null) {
+            local.setAddress(request.getAddress());
+        }
+
         Local savedLocal = repository.save(local);
 
         return toSimpleDto(savedLocal);
@@ -84,10 +94,13 @@ public class LocalService {
 
         dto.setId(local.getId());
         dto.setName(local.getName());
+        dto.setAddress(local.getAddress());
+        dto.setDescription(local.getDescription());
 
         ProjectSimpleResponse projectDto = new ProjectSimpleResponse();
         projectDto.setId(local.getProject().getId());
         projectDto.setName(local.getProject().getName());
+        projectDto.setStatus(local.getProject().getStatus());
         projectDto.setDescription(local.getProject().getDescription());
 
         dto.setProject(projectDto);
@@ -101,6 +114,8 @@ public class LocalService {
 
         dto.setId(local.getId());
         dto.setName(local.getName());
+        dto.setDescription(local.getDescription());
+        dto.setAddress(local.getAddress());
 
         return dto;
     }

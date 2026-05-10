@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "project")
@@ -23,15 +25,20 @@ public class Project {
     @Column(name = "status", nullable = false)
     private String status;
 
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false, updatable = false)
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @JsonIgnore
     @OneToMany(mappedBy = "project")
     private List<Local> locals;
+
+
+    // GETTERS & SETTERS
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -53,5 +60,4 @@ public class Project {
 
     public List<Local> getLocals() { return locals; }
     public void setLocals(List<Local> locals) { this.locals = locals; }
-
 }

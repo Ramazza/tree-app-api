@@ -2,10 +2,10 @@ package com.tree.app.api.model.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "tree")
@@ -24,13 +24,15 @@ public class Tree {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
-    @Column(name = "planted_at", nullable = false, updatable = false)
+    @Column(name = "planted_at", nullable = false)
     private LocalDateTime plantedAt;
-    
+
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false, updatable = false)
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @JsonIgnore

@@ -1,11 +1,11 @@
 package com.tree.app.api.model.entity;
 
 import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "tree")
+@Table(name = "tree_measurement")
 public class TreeMeasurement {
     
     @Id
@@ -27,6 +27,7 @@ public class TreeMeasurement {
     @Column(name = "notes")
     private String notes;
 
+    @UpdateTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
  

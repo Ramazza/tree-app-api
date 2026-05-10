@@ -1,7 +1,5 @@
 package com.tree.app.api.dto.project;
 
-import java.time.LocalDateTime;
-
 import jakarta.validation.constraints.NotBlank;
 
 public class ProjectCreateRequest {

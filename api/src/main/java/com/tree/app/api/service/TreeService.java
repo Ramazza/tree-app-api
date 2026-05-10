@@ -35,10 +35,9 @@ public class TreeService {
         Tree tree = new Tree();
 
         tree.setSpecies(request.getSpecies());
-        tree.setHeight(request.getHeight());
-        tree.setDiameter(request.getDiameter());
-        tree.setStatus(request.getStatus());
-        tree.setPhotoUrl(request.getPhotoUrl());
+        tree.setLatitude(request.getLatitude());
+        tree.setLongitude(request.getLongitude());
+        tree.setPlantedAt(request.getPlantedAt());
 
         tree.setLocal(local);
 
@@ -57,7 +56,7 @@ public class TreeService {
 
             dto.setId(tree.getId());
             dto.setSpecies(tree.getSpecies());
-            dto.setStatus(tree.getStatus());
+            dto.setPlantedAt(tree.getPlantedAt());
 
             return dto;
         }).toList();
@@ -79,20 +78,16 @@ public class TreeService {
             tree.setSpecies(updatedTree.getSpecies());
         }
 
-        if (updatedTree.getHeight() != null) {
-            tree.setHeight(updatedTree.getHeight());
+        if (updatedTree.getLatitude() != null) {
+            tree.setLatitude(updatedTree.getLatitude());
         }
 
-        if (updatedTree.getDiameter() != null) {
-            tree.setDiameter(updatedTree.getDiameter());
+        if (updatedTree.getLongitude() != null) {
+            tree.setLongitude(updatedTree.getLongitude());
         }
         
-        if (updatedTree.getStatus() != null) {
-            tree.setStatus(updatedTree.getStatus());
-        }
-
-        if (updatedTree.getPhotoUrl() != null) {
-            tree.setPhotoUrl(updatedTree.getPhotoUrl());
+        if (updatedTree.getPlantedAt() != null) {
+            tree.setPlantedAt(updatedTree.getPlantedAt());
         }
 
         Tree savedTree = treeRepository.save(tree);
@@ -119,19 +114,25 @@ public class TreeService {
 
         dto.setId(tree.getId());
         dto.setSpecies(tree.getSpecies());
-        dto.setHeight(tree.getHeight());
-        dto.setDiameter(tree.getDiameter());
-        dto.setStatus(tree.getStatus());
-        dto.setPhotoUrl(tree.getPhotoUrl());
+        dto.setLatitude(tree.getLatitude());
+        dto.setLongitude(tree.getLongitude());
+        dto.setPlantedAt(tree.getPlantedAt());
+        dto.setCreatedAt(tree.getCreatedAt());
+        dto.setUpdatedAt(tree.getUpdatedAt());
 
         LocalDetailedResponse localDto = new LocalDetailedResponse();
         localDto.setId(tree.getLocal().getId());
         localDto.setName(tree.getLocal().getName());
+        localDto.setDescription(tree.getLocal().getDescription());
+        localDto.setAddress(tree.getLocal().getAddress());
+        localDto.setCreatedAt(tree.getLocal().getCreatedAt());
+        localDto.setUpdatedAt(tree.getLocal().getUpdatedAt());
 
         ProjectSimpleResponse projectDto = new ProjectSimpleResponse();
         projectDto.setId(tree.getLocal().getProject().getId());
         projectDto.setName(tree.getLocal().getProject().getName());
         projectDto.setDescription(tree.getLocal().getProject().getDescription());
+        projectDto.setStatus(tree.getLocal().getProject().getStatus());
 
         localDto.setProject(projectDto);
         dto.setLocal(localDto);
@@ -144,10 +145,11 @@ public class TreeService {
 
         dto.setId(tree.getId());
         dto.setSpecies(tree.getSpecies());
-        dto.setHeight(tree.getHeight());
-        dto.setDiameter(tree.getDiameter());
-        dto.setStatus(tree.getStatus());
-        dto.setPhotoUrl(tree.getPhotoUrl());
+        dto.setLatitude(tree.getLatitude());
+        dto.setLongitude(tree.getLongitude());
+        dto.setPlantedAt(tree.getPlantedAt());
+        dto.setCreatedAt(tree.getCreatedAt());
+        dto.setUpdatedAt(tree.getUpdatedAt());
 
         return dto;
     }

@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "name",
     "status",
     "description",
-    "createdAt",
-    "UpdatedAt",
+    "created_at",
+    "updated_at",
 })
 
 public class ProjectDetailedResponse {

@@ -25,6 +25,7 @@ public class ProjectService {
         Project project = new Project();
 
         project.setName(request.getName());
+        project.setStatus(request.getStatus());
         project.setDescription(request.getDescription());
 
         Project savedProject = repository.save(project);
@@ -54,6 +55,10 @@ public class ProjectService {
             project.setName(request.getName());
         }
 
+        if (request.getStatus() != null) {
+            project.setStatus(request.getStatus());
+        }
+
         if (request.getDescription() != null) {
             project.setDescription(request.getDescription());
         }
@@ -81,7 +86,10 @@ public class ProjectService {
 
         dto.setId(project.getId());
         dto.setName(project.getName());
+        dto.setStatus(project.getStatus());
         dto.setDescription(project.getDescription());
+        dto.setCreatedAt(project.getCreatedAt());
+        dto.setUpdatedAt(project.getUpdatedAt());
 
         return dto;
     }
@@ -92,6 +100,7 @@ public class ProjectService {
 
         dto.setId(project.getId());
         dto.setName(project.getName());
+        dto.setStatus(project.getStatus());
         dto.setDescription(project.getDescription());
 
         return dto;
