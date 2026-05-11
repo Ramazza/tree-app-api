@@ -1,6 +1,6 @@
 package com.tree.app.api.model.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -29,7 +29,7 @@ public class TreeMeasurement {
 
     @UpdateTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
  
     @ManyToOne
     @JoinColumn(name = "tree_id", nullable = false)
@@ -53,8 +53,8 @@ public class TreeMeasurement {
     public String getPhotoUrl() { return photoUrl; }
     public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDate getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDate createdAt) { this.createdAt = createdAt; }
 
     public Tree getTree() { return tree; }
     public void setTree(Tree tree) { this.tree = tree; }

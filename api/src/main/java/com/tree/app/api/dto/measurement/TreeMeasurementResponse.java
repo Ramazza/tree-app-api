@@ -1,6 +1,6 @@
 package com.tree.app.api.dto.measurement;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -17,7 +17,7 @@ public class TreeMeasurementResponse {
     private Double height;
     private Double diameter;
     private String status;
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     private String photoUrl;
     private String notes;
 
@@ -35,8 +35,8 @@ public class TreeMeasurementResponse {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDate getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDate createdAt) { this.createdAt = createdAt; }
 
     public String getPhotoUrl() { return photoUrl; }
     public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }

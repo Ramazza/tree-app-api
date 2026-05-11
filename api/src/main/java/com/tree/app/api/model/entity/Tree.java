@@ -1,6 +1,6 @@
 package com.tree.app.api.model.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -25,15 +25,15 @@ public class Tree {
     private Double longitude;
 
     @Column(name = "planted_at", nullable = false)
-    private LocalDateTime plantedAt;
+    private LocalDate plantedAt;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
+    private LocalDate updatedAt;
 
     @JsonIgnore
     @OneToMany(mappedBy = "tree")
@@ -55,14 +55,14 @@ public class Tree {
     public Double getLongitude() { return longitude; }
     public void setLongitude(Double longitude) { this.longitude = longitude; }
 
-    public LocalDateTime getPlantedAt() { return plantedAt; }
-    public void setPlantedAt(LocalDateTime plantedAt) { this.plantedAt = plantedAt; }
+    public LocalDate getPlantedAt() { return plantedAt; }
+    public void setPlantedAt(LocalDate plantedAt) { this.plantedAt = plantedAt; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDate getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDate createdAt) { this.createdAt = createdAt; }
 
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    public LocalDate getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDate updatedAt) { this.updatedAt = updatedAt; }
 
     public List<TreeMeasurement> getMeasurements() { return measurements; }
     public void setMeasurements(List<TreeMeasurement> measurements) { this.measurements = measurements; }

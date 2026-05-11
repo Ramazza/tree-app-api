@@ -2,7 +2,7 @@ package com.tree.app.api.dto.local;
 
 import com.tree.app.api.dto.project.ProjectSimpleResponse;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -21,8 +21,8 @@ public class LocalDetailedResponse {
     private String name;
     private String description;
     private String address;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
     private ProjectSimpleResponse project;
 
@@ -40,11 +40,11 @@ public class LocalDetailedResponse {
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDate getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDate createdAt) { this.createdAt = createdAt; }
 
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    public LocalDate getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDate updatedAt) { this.updatedAt = updatedAt; }
 
     public ProjectSimpleResponse getProject() { return project; }
     public void setProject(ProjectSimpleResponse project) { this.project = project; }

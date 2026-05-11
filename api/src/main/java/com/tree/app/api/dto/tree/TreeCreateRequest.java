@@ -1,6 +1,6 @@
 package com.tree.app.api.dto.tree;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
 
@@ -10,7 +10,7 @@ public class TreeCreateRequest {
 
     private Double latitude;
     private Double longitude;
-    private LocalDateTime plantedAt;
+    private LocalDate plantedAt;
 
     // GETTERS & SETTERS
 
@@ -23,6 +23,6 @@ public class TreeCreateRequest {
     public Double getLongitude() { return longitude; }
     public void setLongitude(Double longitude) { this.longitude = longitude; }
 
-    public LocalDateTime getPlantedAt() { return plantedAt; }
-    public void setPlantedAt(LocalDateTime plantedAt) { this.plantedAt = plantedAt; }
+    public LocalDate getPlantedAt() { return plantedAt; }
+    public void setPlantedAt(LocalDate plantedAt) { this.plantedAt = plantedAt; }
 }

@@ -16,7 +16,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.List;
 
 import java.io.IOException;
-import java.util.Collections;
 
 @Component
 public class ApiKeyFilter extends OncePerRequestFilter {
